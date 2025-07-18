@@ -9,9 +9,8 @@
     "typecheck": "react-router typegen && tsc",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "format": "eslint . --fix",
     "check": "npm run typecheck && npm run lint",
-    "check:fix": "npm run typecheck && npm run format",
+    "check:fix": "npm run typecheck && npm run lint:fix",
     "prepare": "husky"
   },
   "lint-staged": {

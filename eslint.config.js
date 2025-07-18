@@ -6,6 +6,62 @@ import jsxA11yPlugin from "eslint-plugin-jsx-a11y";
 import reactPlugin from "eslint-plugin-react";
 import reactHooksPlugin from "eslint-plugin-react-hooks";
 
+// Common rule sets
+const commonReactRules = {
+  ...reactPlugin.configs.recommended.rules,
+  ...reactHooksPlugin.configs.recommended.rules,
+  ...jsxA11yPlugin.configs.recommended.rules,
+  "react/react-in-jsx-scope": "off",
+  "react/prop-types": "off",
+  "react/jsx-uses-react": "off",
+  "react/jsx-uses-vars": "error",
+};
+
+const commonImportRules = {
+  "import/order": ["error", {
+    "groups": [
+      "builtin",
+      "external",
+      "internal",
+      "parent",
+      "sibling",
+      "index",
+    ],
+    "newlines-between": "always",
+    "alphabetize": {
+      "order": "asc",
+      "caseInsensitive": true,
+    },
+  }],
+  "import/no-unresolved": "off",
+  "import/no-unused-modules": "warn",
+};
+
+const commonFormattingRules = {
+  "semi": ["error", "always"],
+  "quotes": ["error", "double", { allowTemplateLiterals: true }],
+  "comma-dangle": ["error", "always-multiline"],
+  "indent": ["error", 2],
+  "object-curly-spacing": ["error", "always"],
+  "array-bracket-spacing": ["error", "never"],
+  "comma-spacing": ["error", { before: false, after: true }],
+  "key-spacing": ["error", { beforeColon: false, afterColon: true }],
+  "space-before-blocks": ["error", "always"],
+  "keyword-spacing": ["error", { before: true, after: true }],
+  "space-infix-ops": "error",
+  "eol-last": ["error", "always"],
+  "no-trailing-spaces": "error",
+  "max-len": ["warn", { code: 100, ignoreUrls: true, ignoreStrings: true }],
+};
+
+const commonGeneralRules = {
+  "no-console": "warn",
+  "no-debugger": "error",
+  "prefer-const": "error",
+  "no-var": "error",
+  "no-multiple-empty-lines": ["warn", { max: 1 }],
+};
+
 export default [
   js.configs.recommended,
   {
@@ -31,9 +87,10 @@ export default [
     rules: {
       ...tsPlugin.configs.recommended.rules,
       ...tsPlugin.configs["recommended-requiring-type-checking"].rules,
-      ...reactPlugin.configs.recommended.rules,
-      ...reactHooksPlugin.configs.recommended.rules,
-      ...jsxA11yPlugin.configs.recommended.rules,
+      ...commonReactRules,
+      ...commonImportRules,
+      ...commonGeneralRules,
+      ...commonFormattingRules,
 
       // TypeScript specific
       "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
@@ -41,54 +98,6 @@ export default [
       "@typescript-eslint/explicit-module-boundary-types": "off",
       "@typescript-eslint/no-explicit-any": "warn",
       "@typescript-eslint/no-non-null-assertion": "warn",
-
-      // React specific
-      "react/react-in-jsx-scope": "off",
-      "react/prop-types": "off",
-      "react/jsx-uses-react": "off",
-      "react/jsx-uses-vars": "error",
-
-      // Import/Export
-      "import/order": ["error", {
-        "groups": [
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index",
-        ],
-        "newlines-between": "always",
-        "alphabetize": {
-          "order": "asc",
-          "caseInsensitive": true,
-        },
-      }],
-      "import/no-unresolved": "off",
-      "import/no-unused-modules": "warn",
-
-      // General
-      "no-console": "warn",
-      "no-debugger": "error",
-      "prefer-const": "error",
-      "no-var": "error",
-      "no-multiple-empty-lines": ["warn", { max: 1 }],
-
-      // Formatting rules (replaces Prettier)
-      "semi": ["error", "always"],
-      "quotes": ["error", "double", { allowTemplateLiterals: true }],
-      "comma-dangle": ["error", "always-multiline"],
-      "indent": ["error", 2],
-      "object-curly-spacing": ["error", "always"],
-      "array-bracket-spacing": ["error", "never"],
-      "comma-spacing": ["error", { before: false, after: true }],
-      "key-spacing": ["error", { beforeColon: false, afterColon: true }],
-      "space-before-blocks": ["error", "always"],
-      "keyword-spacing": ["error", { before: true, after: true }],
-      "space-infix-ops": "error",
-      "eol-last": ["error", "always"],
-      "no-trailing-spaces": "error",
-      "max-len": ["warn", { code: 80, ignoreUrls: true, ignoreStrings: true }],
     },
     settings: {
       react: {
@@ -114,58 +123,13 @@ export default [
       "import": importPlugin,
     },
     rules: {
-      ...reactPlugin.configs.recommended.rules,
-      ...reactHooksPlugin.configs.recommended.rules,
-      ...jsxA11yPlugin.configs.recommended.rules,
+      ...commonReactRules,
+      ...commonImportRules,
+      ...commonGeneralRules,
+      ...commonFormattingRules,
 
-      // React specific
-      "react/react-in-jsx-scope": "off",
-      "react/prop-types": "off",
-      "react/jsx-uses-react": "off",
-      "react/jsx-uses-vars": "error",
-
-      // Import/Export
-      "import/order": ["error", {
-        "groups": [
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index",
-        ],
-        "newlines-between": "always",
-        "alphabetize": {
-          "order": "asc",
-          "caseInsensitive": true,
-        },
-      }],
-      "import/no-unresolved": "off",
-      "import/no-unused-modules": "warn",
-
-      // General
-      "no-console": "warn",
-      "no-debugger": "error",
-      "prefer-const": "error",
-      "no-var": "error",
-      "no-multiple-empty-lines": ["warn", { max: 1 }],
+      // JavaScript specific
       "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
-
-      // Formatting rules (replaces Prettier)
-      "semi": ["error", "always"],
-      "quotes": ["error", "double", { allowTemplateLiterals: true }],
-      "comma-dangle": ["error", "always-multiline"],
-      "indent": ["error", 2],
-      "object-curly-spacing": ["error", "always"],
-      "array-bracket-spacing": ["error", "never"],
-      "comma-spacing": ["error", { before: false, after: true }],
-      "key-spacing": ["error", { beforeColon: false, afterColon: true }],
-      "space-before-blocks": ["error", "always"],
-      "keyword-spacing": ["error", { before: true, after: true }],
-      "space-infix-ops": "error",
-      "eol-last": ["error", "always"],
-      "no-trailing-spaces": "error",
-      "max-len": ["warn", { code: 80, ignoreUrls: true, ignoreStrings: true }],
     },
     settings: {
       react: {

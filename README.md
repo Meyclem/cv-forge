@@ -17,16 +17,16 @@ A modern CV/Resume builder built with React Router 7, TypeScript, and Tailwind C
    ```
 
 2. **Setup Node.js version:**
-   
+
    **Option A: Using asdf (Recommended)**
    ```bash
    # Install Node.js plugin if not already installed
    asdf plugin add nodejs
-   
+
    # Install project Node.js version (defined in .tool-versions)
    asdf install
    ```
-   
+
    **Option B: Manual Installation**
    - Ensure Node.js 22.17.1+ is installed
 
@@ -51,7 +51,6 @@ This project includes automated code quality tools and pre-commit hooks.
 ```bash
 npm run lint          # Check for linting issues
 npm run lint:fix      # Auto-fix linting issues
-npm run format        # Format code (alias for lint:fix)
 npm run check         # Run typecheck + lint
 npm run check:fix     # Run typecheck + format
 ```
@@ -70,7 +69,7 @@ docs: update API documentation
 ### VS Code
 Install recommended extensions when prompted. The workspace is configured for:
 - Format on save with ESLint
-- TypeScript auto-imports  
+- TypeScript auto-imports
 - Debug with `F5`
 
 ## Available Scripts
@@ -85,9 +84,8 @@ npm run start         # Start production server
 npm run typecheck     # TypeScript type checking
 npm run lint          # ESLint checking
 npm run lint:fix      # ESLint auto-fix
-npm run format        # Format code
 npm run check         # Typecheck + lint
-npm run check:fix     # Typecheck + format
+npm run check:fix     # Typecheck + lint:fix
 ```
 
 ## Troubleshooting
