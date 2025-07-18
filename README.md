@@ -88,6 +88,13 @@ npm run lint          # ESLint checking
 npm run lint:fix      # ESLint auto-fix
 npm run check         # Typecheck + lint
 npm run check:fix     # Typecheck + lint:fix
+
+# Testing
+npm run test          # Run unit tests
+npm run test:watch    # Run unit tests in watch mode
+npm run test:coverage # Run tests with coverage report
+npm run test:e2e      # Run E2E tests (Playwright)
+npm run test:all      # Run all tests
 ```
 
 ## Troubleshooting
@@ -118,11 +125,24 @@ If your commit is rejected:
 2. **Reload VS Code** after extension installation
 3. **Check workspace settings** are applied
 
+## Testing
+
+The project uses a comprehensive testing setup:
+- **Unit/Integration**: Vitest + React Testing Library
+- **E2E**: Playwright (Chrome, Firefox, Safari)
+- **Coverage**: Automatic reporting with v8
+
+### GitHub Actions
+All pull requests automatically run:
+- Linting and type checking
+- Unit tests with coverage
+- E2E tests across browsers
+
 ## Contributing
 
 1. Follow the established code style (enforced by ESLint)
 2. Use conventional commit messages
-3. Ensure all tests pass: `npm run check`
+3. Ensure all tests pass: `npm run test:all`
 4. Let the pre-commit hooks guide you
 
 The development tools will automatically maintain code quality and consistency.
