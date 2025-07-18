@@ -138,11 +138,12 @@ export default [
     },
   },
   {
-    files: ["**/*.config.{js,ts}", "vite.config.ts", "react-router.config.ts"],
+    files: ["**/*.config.{js,ts}", "vite.config.ts", "react-router.config.ts", "playwright.config.ts"],
     languageOptions: {
       globals: {
         __dirname: "readonly",
         __filename: "readonly",
+        process: "readonly",
       },
     },
     rules: {
