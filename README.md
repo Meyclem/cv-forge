@@ -1,87 +1,128 @@
-# Welcome to React Router!
+# CV Forge
 
-A modern, production-ready template for building full-stack React applications using React Router.
+A modern CV/Resume builder built with React Router 7, TypeScript, and Tailwind CSS.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+## Development Setup
 
-## Features
+### Prerequisites
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+- Node.js 22.17.1+ or [asdf](https://asdf-vm.com/guide/getting-started.html) for automatic version management
 
-## Getting Started
+### Quick Start
 
-### Installation
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   cd cv-forge
+   ```
 
-Install the dependencies:
+2. **Setup Node.js version:**
+   
+   **Option A: Using asdf (Recommended)**
+   ```bash
+   # Install Node.js plugin if not already installed
+   asdf plugin add nodejs
+   
+   # Install project Node.js version (defined in .tool-versions)
+   asdf install
+   ```
+   
+   **Option B: Manual Installation**
+   - Ensure Node.js 22.17.1+ is installed
+
+3. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+4. **Start development server:**
+   ```bash
+   npm run dev
+   ```
+
+5. **Open your browser:**
+   Navigate to `http://localhost:5173`
+
+## Development Tools
+
+This project includes automated code quality tools and pre-commit hooks.
+
+### Code Quality Commands
+```bash
+npm run lint          # Check for linting issues
+npm run lint:fix      # Auto-fix linting issues
+npm run format        # Format code (alias for lint:fix)
+npm run check         # Run typecheck + lint
+npm run check:fix     # Run typecheck + format
+```
+
+### Git Hooks (Husky)
+- **Pre-commit**: Auto-fixes code formatting on staged files
+- **Commit messages**: Must follow [Conventional Commits](https://www.conventionalcommits.org/) format
+
+**Valid commit examples:**
+```bash
+feat: add user authentication
+fix: resolve memory leak
+docs: update API documentation
+```
+
+### VS Code
+Install recommended extensions when prompted. The workspace is configured for:
+- Format on save with ESLint
+- TypeScript auto-imports  
+- Debug with `F5`
+
+## Available Scripts
 
 ```bash
-npm install
+# Development
+npm run dev           # Start development server
+npm run build         # Build for production
+npm run start         # Start production server
+
+# Code Quality
+npm run typecheck     # TypeScript type checking
+npm run lint          # ESLint checking
+npm run lint:fix      # ESLint auto-fix
+npm run format        # Format code
+npm run check         # Typecheck + lint
+npm run check:fix     # Typecheck + format
 ```
 
-### Development
+## Troubleshooting
 
-Start the development server with HMR:
-
+### Linting Issues
 ```bash
-npm run dev
+# Check what ESLint will fix
+npm run lint
+
+# Auto-fix all fixable issues
+npm run lint:fix
 ```
 
-Your application will be available at `http://localhost:5173`.
-
-## Building for Production
-
-Create a production build:
-
+### TypeScript Errors
 ```bash
-npm run build
+# Generate types and check for errors
+npm run typecheck
 ```
 
-## Deployment
+### Commit Rejected
+If your commit is rejected:
+1. **Check commit message format** (must follow conventional commits)
+2. **Fix linting errors** with `npm run lint:fix`
+3. **Retry the commit**
 
-### Docker Deployment
+### VS Code Setup
+1. **Install recommended extensions** (popup should appear)
+2. **Reload VS Code** after extension installation
+3. **Check workspace settings** are applied
 
-To build and run using Docker:
+## Contributing
 
-```bash
-docker build -t my-app .
+1. Follow the established code style (enforced by ESLint)
+2. Use conventional commit messages
+3. Ensure all tests pass: `npm run check`
+4. Let the pre-commit hooks guide you
 
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+The development tools will automatically maintain code quality and consistency.
