@@ -139,8 +139,39 @@ export default [
   },
   {
     files: ["**/*.config.{js,ts}", "vite.config.ts", "react-router.config.ts"],
+    languageOptions: {
+      globals: {
+        __dirname: "readonly",
+        __filename: "readonly",
+      },
+    },
     rules: {
       "no-console": "off",
+    },
+  },
+  {
+    files: ["**/*.{test,spec}.{js,ts,jsx,tsx}", "tests/**/*.{js,ts,jsx,tsx}"],
+    languageOptions: {
+      globals: {
+        vi: "readonly",
+        describe: "readonly",
+        it: "readonly",
+        expect: "readonly",
+        beforeEach: "readonly",
+        afterEach: "readonly",
+        beforeAll: "readonly",
+        afterAll: "readonly",
+        test: "readonly",
+        window: "readonly",
+        global: "readonly",
+        document: "readonly",
+      },
+    },
+    rules: {
+      "no-console": "off",
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
     },
   },
   {
