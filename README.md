@@ -34,6 +34,8 @@ A modern CV/Resume builder built with React Router 7, TypeScript, and Tailwind C
    ```bash
    npm install
    ```
+   
+   > **Note:** Dependencies are automatically pinned to exact versions (no `^` ranges) to ensure consistent installations across environments. The setup automatically configures `.npmrc` with `save-exact=true`.
 
 4. **Start development server:**
    ```bash
