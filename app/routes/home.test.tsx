@@ -10,7 +10,34 @@ describe("Home", () => {
   });
 
   it("returns correct meta information", () => {
-    const mockMetaArg: Parameters<typeof meta>[0] = { location: { pathname: "/" } };
+    const mockMetaArg: Parameters<typeof meta>[0] = {
+      location: {
+        pathname: "/",
+        search: "",
+        hash: "",
+        state: null,
+        key: "default",
+      },
+      params: {},
+      data: undefined,
+      matches: [
+        {
+          id: "root",
+          params: {},
+          pathname: "/",
+          meta: [],
+          data: undefined,
+        },
+        {
+          id: "routes/home",
+          params: {},
+          pathname: "/",
+          meta: [],
+          data: undefined,
+          handle: undefined,
+        },
+      ],
+    };
     const metaResult = meta(mockMetaArg);
     expect(metaResult).toEqual([
       { title: "New React Router App" },
