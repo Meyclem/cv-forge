@@ -10,12 +10,6 @@ export function meta(_args: Route.MetaArgs) {
 }
 
 export default function Home() {
-  // Fixed: correct type assignment
-  const name: string = "TypeScript works!";
-  return (
-    <>
-      <Welcome />
-      <div>{name}</div>
-    </>
-  );
+  // Fixed: removed console.log
+  return <Welcome />;
 }
