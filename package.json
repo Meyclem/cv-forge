@@ -22,7 +22,8 @@
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
-      "eslint --fix"
+      "eslint --fix",
+      "bash -c 'npm run typecheck'"
     ]
   },
   "dependencies": {
