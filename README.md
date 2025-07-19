@@ -58,7 +58,9 @@ npm run check:fix     # Run typecheck + format
 ```
 
 ### Git Hooks (Husky)
-- **Pre-commit**: Auto-fixes code formatting on staged files
+- **Pre-commit**: 
+  - Auto-fixes code formatting on staged files
+  - Runs TypeScript type checking to ensure type safety
 - **Commit messages**: Must follow [Conventional Commits](https://www.conventionalcommits.org/) format
 
 **Valid commit examples:**
@@ -118,7 +120,8 @@ npm run typecheck
 If your commit is rejected:
 1. **Check commit message format** (must follow conventional commits)
 2. **Fix linting errors** with `npm run lint:fix`
-3. **Retry the commit**
+3. **Fix TypeScript errors** with `npm run typecheck`
+4. **Retry the commit**
 
 ### VS Code Setup
 1. **Install recommended extensions** (popup should appear)
