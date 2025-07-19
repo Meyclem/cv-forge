@@ -10,5 +10,6 @@ export function meta(_args: Route.MetaArgs) {
 }
 
 export default function Home() {
+  // Fixed: removed console.log
   return <Welcome />;
 }

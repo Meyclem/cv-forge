@@ -34,6 +34,8 @@ A modern CV/Resume builder built with React Router 7, TypeScript, and Tailwind C
    ```bash
    npm install
    ```
+   
+   > **Note:** Dependencies are automatically pinned to exact versions (no `^` ranges) to ensure consistent installations across environments. The setup automatically configures `.npmrc` with `save-exact=true`.
 
 4. **Start development server:**
    ```bash
@@ -56,7 +58,9 @@ npm run check:fix     # Run typecheck + format
 ```
 
 ### Git Hooks (Husky)
-- **Pre-commit**: Auto-fixes code formatting on staged files
+- **Pre-commit**: 
+  - Auto-fixes code formatting on staged files
+  - Runs TypeScript type checking to ensure type safety
 - **Commit messages**: Must follow [Conventional Commits](https://www.conventionalcommits.org/) format
 
 **Valid commit examples:**
@@ -86,6 +90,13 @@ npm run lint          # ESLint checking
 npm run lint:fix      # ESLint auto-fix
 npm run check         # Typecheck + lint
 npm run check:fix     # Typecheck + lint:fix
+
+# Testing
+npm run test          # Run unit tests
+npm run test:watch    # Run unit tests in watch mode
+npm run test:coverage # Run tests with coverage report
+npm run test:e2e      # Run E2E tests (Playwright)
+npm run test:all      # Run all tests
 ```
 
 ## Troubleshooting
@@ -109,18 +120,32 @@ npm run typecheck
 If your commit is rejected:
 1. **Check commit message format** (must follow conventional commits)
 2. **Fix linting errors** with `npm run lint:fix`
-3. **Retry the commit**
+3. **Fix TypeScript errors** with `npm run typecheck`
+4. **Retry the commit**
 
 ### VS Code Setup
 1. **Install recommended extensions** (popup should appear)
 2. **Reload VS Code** after extension installation
 3. **Check workspace settings** are applied
 
+## Testing
+
+The project uses a comprehensive testing setup:
+- **Unit/Integration**: Vitest + React Testing Library
+- **E2E**: Playwright (Chrome, Firefox, Safari)
+- **Coverage**: Automatic reporting with v8
+
+### GitHub Actions
+All pull requests automatically run:
+- Linting and type checking
+- Unit tests with coverage
+- E2E tests across browsers
+
 ## Contributing
 
 1. Follow the established code style (enforced by ESLint)
 2. Use conventional commit messages
-3. Ensure all tests pass: `npm run check`
+3. Ensure all tests pass: `npm run test:all`
 4. Let the pre-commit hooks guide you
 
 The development tools will automatically maintain code quality and consistency.
