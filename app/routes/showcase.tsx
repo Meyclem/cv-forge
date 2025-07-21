@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Badge } from "~/components/ui/badge";
@@ -42,12 +42,39 @@ export default function Showcase() {
   const [inputValue, setInputValue] = useState("");
   const [textareaValue, setTextareaValue] = useState("");
   const [selectValue, setSelectValue] = useState("");
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    // Check if dark mode is already set
+    if (typeof document !== "undefined") {
+      const isDark = document.documentElement.classList.contains("dark");
+      setDarkMode(isDark);
+    }
+  }, []);
+
+  const toggleDarkMode = () => {
+    if (typeof document !== "undefined") {
+      const newDarkMode = !darkMode;
+      setDarkMode(newDarkMode);
+      document.documentElement.classList.toggle("dark", newDarkMode);
+    }
+  };
 
   return (
     <TooltipProvider>
       <div className="container mx-auto p-8 space-y-8">
         <div className="space-y-2">
-          <h1 className="text-4xl font-bold">Component Showcase</h1>
+          <div className="flex items-center justify-between">
+            <h1 className="text-4xl font-bold">Component Showcase</h1>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={toggleDarkMode}
+              title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {darkMode ? "☀️" : "🌙"}
+            </Button>
+          </div>
           <p className="text-muted-foreground">
             A demonstration of all shadcn/ui components for the CV Forge application
           </p>

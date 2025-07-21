@@ -77,6 +77,12 @@ export default [
         },
         project: "./tsconfig.json",
       },
+      globals: {
+        window: "readonly",
+        document: "readonly",
+        navigator: "readonly",
+        console: "readonly",
+      },
     },
     plugins: {
       "@typescript-eslint": tsPlugin,
