@@ -15,6 +15,7 @@ const commonReactRules = {
   "react/prop-types": "off",
   "react/jsx-uses-react": "off",
   "react/jsx-uses-vars": "error",
+  "react/no-unescaped-entities": "off",
 };
 
 const commonImportRules = {
