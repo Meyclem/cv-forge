@@ -46,18 +46,14 @@ export default function Showcase() {
 
   useEffect(() => {
     // Check if dark mode is already set
-    if (typeof document !== "undefined") {
-      const isDark = document.documentElement.classList.contains("dark");
-      setDarkMode(isDark);
-    }
+    const isDark = document.documentElement.classList.contains("dark");
+    setDarkMode(isDark);
   }, []);
 
   const toggleDarkMode = () => {
-    if (typeof document !== "undefined") {
-      const newDarkMode = !darkMode;
-      setDarkMode(newDarkMode);
-      document.documentElement.classList.toggle("dark", newDarkMode);
-    }
+    const newDarkMode = !darkMode;
+    setDarkMode(newDarkMode);
+    document.documentElement.classList.toggle("dark", newDarkMode);
   };
 
   return (
