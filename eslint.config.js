@@ -15,6 +15,7 @@ const commonReactRules = {
   "react/prop-types": "off",
   "react/jsx-uses-react": "off",
   "react/jsx-uses-vars": "error",
+  "react/no-unescaped-entities": "off",
 };
 
 const commonImportRules = {
@@ -75,6 +76,12 @@ export default [
           jsx: true,
         },
         project: "./tsconfig.json",
+      },
+      globals: {
+        window: "readonly",
+        document: "readonly",
+        navigator: "readonly",
+        console: "readonly",
       },
     },
     plugins: {
