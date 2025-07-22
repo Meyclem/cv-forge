@@ -1,6 +1,7 @@
-import { testSupabaseConnection } from "~/lib/supabase.server";
+import type { Route } from "./+types/health";
 
-export async function loader({ request }: { request: Request }) {
+import { testSupabaseConnection } from "~/lib/supabase.server";
+export async function loader({ request }: Route.LoaderArgs) {
   const result = await testSupabaseConnection(request);
 
   return Response.json({
