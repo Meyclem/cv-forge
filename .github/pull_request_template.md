@@ -4,10 +4,7 @@
 
 ## Related Issue
 
-<!--- If suggesting a new feature or change, please discuss it in an -->
-<!--- issue first -->
-<!--- If fixing a bug, there should be an issue describing it with -->
-<!--- steps to reproduce -->
+[MMI-XX](<link_to_issue_url>)
 
 ## Motivation and Context
 
