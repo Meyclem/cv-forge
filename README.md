@@ -45,6 +45,55 @@ A modern CV/Resume builder built with React Router 7, TypeScript, and Tailwind C
 5. **Open your browser:**
    Navigate to `http://localhost:5173`
 
+## Supabase Integration
+
+This project uses Supabase for backend services with server-side rendering support.
+
+### Setup
+
+1. **Configure environment variables:**
+   ```bash
+   cp .env.example .env.local
+   ```
+
+2. **Add your Supabase credentials to `.env.local`:**
+   ```env
+   VITE_SUPABASE_URL=https://your-project-id.supabase.co
+   VITE_SUPABASE_ANON_KEY=your-anon-key-here
+   ```
+
+3. **Find your credentials:**
+   - Go to [Supabase Dashboard](https://app.supabase.com)
+   - Navigate to your project → Settings → API
+   - Copy the Project URL and anon public key
+
+### Testing Connection
+
+Visit `/health` in development to verify Supabase connectivity:
+```bash
+npm run dev
+# Navigate to http://localhost:5173/health
+```
+
+Expected response for successful connection:
+```json
+{
+  "supabase": { "success": true },
+  "timestamp": "2025-07-22T12:00:00.000Z"
+}
+```
+
+### Usage in Routes
+
+```typescript
+import { createSupabaseServerClient } from "~/lib/supabase.server";
+
+export async function loader({ request }: Route.LoaderArgs) {
+  const supabase = createSupabaseServerClient(request);
+  // Use supabase client for server-side operations
+}
+```
+
 ## Development Tools
 
 This project includes automated code quality tools and pre-commit hooks.
