@@ -1,6 +1,10 @@
 import { createServerClient } from "@supabase/ssr";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
-export function createSupabaseServerClient(request: Request, response?: Response) {
+export function createSupabaseServerClient(
+  request: Request,
+  response?: Response,
+): SupabaseClient {
   const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
   const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
 
@@ -37,4 +41,30 @@ export function createSupabaseServerClient(request: Request, response?: Response
       },
     },
   });
+}
+
+export async function testSupabaseConnection(request: Request): Promise<{
+  success: boolean;
+  error?: string;
+}> {
+  try {
+    const supabase = createSupabaseServerClient(request);
+
+    // Simple health check - try to access auth user (doesn't require database tables)
+    const { error } = await supabase.auth.getUser();
+
+    if (error && error.message !== "Auth session missing!") {
+      return {
+        success: false,
+        error: `Supabase connection failed: ${error.message}`,
+      };
+    }
+
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      error: `Connection error: ${error instanceof Error ? error.message : String(error)}`,
+    };
+  }
 }
