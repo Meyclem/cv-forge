@@ -3,17 +3,15 @@ import { test, expect } from "@playwright/test";
 test("homepage loads and displays correct content", async ({ page }) => {
   await page.goto("/");
 
-  await expect(page).toHaveTitle("New React Router App");
-  await expect(page.getByAltText("React Router").first()).toBeVisible();
-  await expect(page.getByRole("link", { name: "React Router docs" })).toBeVisible();
+  await expect(page).toHaveTitle("CV Forge");
+  await expect(page.getByText("CV Forge")).toBeVisible();
+  await expect(page.getByText("Build professional CVs with modern technology")).toBeVisible();
+  await expect(page.getByText("Coming soon...")).toBeVisible();
 });
 
 test("navigation works correctly", async ({ page }) => {
   await page.goto("/");
 
-  await expect(page.getByAltText("React Router").first()).toBeVisible();
-
-  const docsLink = page.getByRole("link", { name: "React Router docs" });
-  await expect(docsLink).toHaveAttribute("target", "_blank");
-  await expect(docsLink).toHaveAttribute("rel", "noreferrer");
+  await expect(page.getByText("CV Forge")).toBeVisible();
+  await expect(page.getByText("Coming soon...")).toBeVisible();
 });

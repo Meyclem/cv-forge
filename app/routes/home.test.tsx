@@ -4,9 +4,11 @@ import { describe, it, expect } from "vitest";
 import Home, { meta } from "./home";
 
 describe("Home", () => {
-  it("renders the Welcome component", () => {
+  it("renders the CV Forge homepage", () => {
     render(<Home />);
-    expect(screen.getAllByAltText("React Router")).toHaveLength(2);
+    expect(screen.getByText("CV Forge")).toBeInTheDocument();
+    expect(screen.getByText("Build professional CVs with modern technology")).toBeInTheDocument();
+    expect(screen.getByText("Coming soon...")).toBeInTheDocument();
   });
 
   it("returns correct meta information", () => {
@@ -40,8 +42,8 @@ describe("Home", () => {
     };
     const metaResult = meta(mockMetaArg);
     expect(metaResult).toEqual([
-      { title: "New React Router App" },
-      { name: "description", content: "Welcome to React Router!" },
+      { title: "CV Forge" },
+      { name: "description", content: "Modern CV builder application" },
     ]);
   });
 });
