@@ -34,7 +34,7 @@ A modern CV/Resume builder built with React Router 7, TypeScript, and Tailwind C
    ```bash
    npm install
    ```
-   
+
    > **Note:** Dependencies are automatically pinned to exact versions (no `^` ranges) to ensure consistent installations across environments. The setup automatically configures `.npmrc` with `save-exact=true`.
 
 4. **Start development server:**
@@ -107,7 +107,7 @@ npm run check:fix     # Run typecheck + format
 ```
 
 ### Git Hooks (Husky)
-- **Pre-commit**: 
+- **Pre-commit**:
   - Auto-fixes code formatting on staged files
   - Runs TypeScript type checking to ensure type safety
 - **Commit messages**: Must follow [Conventional Commits](https://www.conventionalcommits.org/) format
@@ -189,6 +189,15 @@ All pull requests automatically run:
 - Linting and type checking
 - Unit tests with coverage
 - E2E tests across browsers
+
+## Deployment
+
+**Vercel Integration:**
+- Automatic deployments on main branch pushes
+- Preview deployments generated for all pull requests
+- CI/CD pipeline runs automated tests (TypeScript, ESLint, Vitest, Playwright)
+- Environment variables configured securely across environments
+- React Router 7 framework detection enabled for optimized builds
 
 ## Contributing
 
