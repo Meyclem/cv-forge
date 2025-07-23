@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 
-import Home, { meta } from "./home";
+import Home, { meta } from "../app/routes/home";
 
 describe("Home", () => {
   it("renders the CV Forge homepage", () => {
@@ -28,7 +28,7 @@ describe("Home", () => {
           params: {},
           pathname: "/",
           meta: [],
-          data: undefined,
+          data: { user: null },
         },
         {
           id: "routes/home",

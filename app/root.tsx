@@ -6,9 +6,15 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  NavLink,
+  Form,
 } from "react-router";
 
 import type { Route } from "./+types/root";
+
+import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
+import { Button } from "~/components/ui/button";
+import { getUser } from "~/lib/supabase.server";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
@@ -23,6 +29,20 @@ export const links: Route.LinksFunction = () => [
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   },
 ];
+
+export async function loader({ request }: Route.LoaderArgs) {
+  // Get current user for navigation
+  const user = await getUser(request);
+
+  return {
+    user: user ? {
+      id: user.id,
+      email: user.email,
+      name: (user.user_metadata?.full_name as string) || user.email?.split("@")[0] || "User",
+      avatar: user.user_metadata?.avatar_url as string | undefined,
+    } : null,
+  };
+}
 
 export function Layout({ children }: { children: ReactNode }) {
   return (
@@ -42,8 +62,82 @@ export function Layout({ children }: { children: ReactNode }) {
   );
 }
 
-export default function App() {
-  return <Outlet />;
+export default function App({ loaderData }: Route.ComponentProps) {
+  const { user } = loaderData;
+
+  return (
+    <div className="min-h-screen bg-white dark:bg-gray-900">
+      <nav className="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16">
+            <div className="flex items-center">
+              <NavLink
+                to="/"
+                className="text-xl font-bold text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300"
+              >
+                CV Forge
+              </NavLink>
+            </div>
+
+            <div className="flex items-center space-x-4">
+              {user ? (
+                // Authenticated user navigation
+                <>
+                  <NavLink
+                    to="/dashboard"
+                    className={({ isActive }) =>
+                      `px-3 py-2 rounded-md text-sm font-medium ${
+                        isActive
+                          ? "bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white"
+                          : "text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+                      }`
+                    }
+                  >
+                    Dashboard
+                  </NavLink>
+
+                  <div className="flex items-center space-x-3">
+                    <Avatar className="h-8 w-8">
+                      <AvatarImage src={user.avatar} alt={user.name} />
+                      <AvatarFallback>
+                        {user.name.slice(0, 2).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      {user.name}
+                    </span>
+                  </div>
+
+                  <Form action="/logout" method="post">
+                    <Button variant="outline" size="sm" type="submit">
+                      Sign out
+                    </Button>
+                  </Form>
+                </>
+              ) : (
+                // Unauthenticated user navigation
+                <>
+                  <NavLink
+                    to="/login"
+                    className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    Sign in
+                  </NavLink>
+                  <NavLink to="/signup">
+                    <Button size="sm">
+                      Get started
+                    </Button>
+                  </NavLink>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <Outlet />
+    </div>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
