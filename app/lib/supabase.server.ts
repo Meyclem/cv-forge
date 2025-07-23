@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
-import type { SupabaseClient } from "@supabase/supabase-js";
+import type { SupabaseClient, User } from "@supabase/supabase-js";
+import { redirect } from "react-router";
 
 export function createSupabaseServerClient(
   request: Request,
@@ -41,6 +42,72 @@ export function createSupabaseServerClient(
       },
     },
   });
+}
+
+/**
+ * Get the current user from the request
+ * Returns null if no user is authenticated
+ */
+export async function getUser(request: Request, response?: Response): Promise<User | null> {
+  const supabase = createSupabaseServerClient(request, response);
+
+  const { data: { user }, error } = await supabase.auth.getUser();
+
+  if (error || !user) {
+    return null;
+  }
+
+  return user;
+}
+
+/**
+ * Require authentication for protected routes
+ * Redirects to login if user is not authenticated
+ */
+export async function requireAuth(request: Request, response?: Response): Promise<User> {
+  const user = await getUser(request, response);
+
+  if (!user) {
+    const url = new URL(request.url);
+    const redirectTo = url.pathname + url.search;
+    // eslint-disable-next-line @typescript-eslint/only-throw-error
+    throw redirect(`/login?redirectTo=${encodeURIComponent(redirectTo)}`);
+  }
+
+  return user;
+}
+
+/**
+ * Redirect to login with optional redirect URL
+ */
+export function redirectToLogin(redirectTo?: string): never {
+  const searchParams = redirectTo
+    ? `?redirectTo=${encodeURIComponent(redirectTo)}`
+    : "";
+  // eslint-disable-next-line @typescript-eslint/only-throw-error
+  throw redirect(`/login${searchParams}`);
+}
+
+/**
+ * Get redirect URL from search params, defaulting to dashboard
+ */
+export function getRedirectTo(request: Request, defaultRedirect = "/dashboard"): string {
+  const url = new URL(request.url);
+  const redirectTo = url.searchParams.get("redirectTo");
+
+  // Ensure redirect URL is safe (same origin)
+  if (redirectTo) {
+    try {
+      const redirectUrl = new URL(redirectTo, url.origin);
+      if (redirectUrl.origin === url.origin) {
+        return redirectTo;
+      }
+    } catch {
+      // Invalid URL, fall back to default
+    }
+  }
+
+  return defaultRedirect;
 }
 
 export async function testSupabaseConnection(request: Request): Promise<{
